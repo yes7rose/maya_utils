@@ -37,9 +37,11 @@ import maya.mel as mel
 
 def shibokenGetMayaMainWindow():
     mayaMainWindowPtr = apiUI.MQtUtil.mainWindow()
-    mayaMainWindow = shiboken.wrapInstance(long(mayaMainWindowPtr), QtGui.QWidget)
-
-    return mayaMainWindow
+    if mayaMainWindowPtr:
+        mayaMainWindow = shiboken.wrapInstance(long(mayaMainWindowPtr), QtGui.QWidget)
+        return mayaMainWindow
+    else:
+        return None
 
 #def sipToQtObject(mayaName):
 #    """
