@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #Source code for some common Maya/PyQt functions we will be using
 #import sip
 # sip.setapi('QString', 2)
