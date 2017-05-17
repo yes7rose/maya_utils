@@ -12,5 +12,13 @@ def checkAndLoadPlugin(pluginName=""):
     :return:
     """
     if not cmds.pluginInfo(pluginName, query=True, loaded=True):
-        cmds.loadPlugin(pluginName)
-        MGlobal.displayInfo("plugin " + pluginName + " loaded success")
+        load_result = cmds.loadPlugin(pluginName)
+        if load_result:
+            MGlobal.displayInfo("plugin " + pluginName + " loaded success")
+            return True
+        else:
+            MGlobal.displayError("Can find and load plugin:%s"%pluginName)
+            return False
+    else:
+        MGlobal.displayInfo("Plugin already loaded:%s"%pluginName)
+        return True

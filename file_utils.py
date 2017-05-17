@@ -25,3 +25,9 @@ def getCurrentWorkspaceDir():
 def getCurrentSceneName():
     currentSceneName = pmcore.system.sceneName().basename()[:-3]
     return currentSceneName
+
+def getNodesInReferenceFromFileName(ref_file):
+    pass
+
+def getNodesInReferenceFromRefNode(ref_node):
+    pass
