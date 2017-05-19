@@ -3,6 +3,8 @@
 import os
 import maya.cmds as cmds
 
+DEFAULT_SHADING_GROUPS = ['initialParticleSE', 'initialShadingGroup']
+
 def getObjectsShaderGroupSet(objShape=""):
 
     cmds.select(clear=True)

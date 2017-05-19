@@ -1,5 +1,9 @@
 # encoding: utf-8
 
+import os
+import logging
+import re
+
 from maya.OpenMaya import MGlobal
 
 import maya.cmds as cmds
@@ -31,3 +35,20 @@ def getNodesInReferenceFromFileName(ref_file):
 
 def getNodesInReferenceFromRefNode(ref_node):
     pass
+
+def getFileVersionString(file_name):
+    """
+    get the version string "vxxx"
+    """
+    version_patten = re.compile("(?<=[_\.])v\d{1,}(?=[_\.])")
+
+    version_list = re.findall(version_patten, file_name)
+    if not version_list :
+        logging.warning(u"文件名不包含有version字符串:%s"%file_name)
+        return None
+
+    if len(version_list) > 1:
+        logging.warning(u"文件名包含有多个version字符串:%s"%file_name)
+        return None
+
+    return version_list[0]
