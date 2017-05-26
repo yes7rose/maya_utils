@@ -21,7 +21,6 @@ def findMPlug(in_node, in_attribute):
     node = node_utils.getNodeFromName(in_node)
     return MPlug(node, MFnDependencyNode(node).attribute(in_attribute))
 
-
 def getPlugValue(in_plug):
     '''
     @param in_plug: MPlug, to get value from
