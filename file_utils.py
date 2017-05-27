@@ -103,7 +103,13 @@ def isFileReferenced(file_name):
     else:
         return False
 
-# ===== file version ======
+def getNodeReferenceNode(node_name):
+    """ """
+    is_ref_node = cmds.referenceQuery(node_name, isNodeReferenced=True)
+    if not is_ref_node:
+        logging.error("Node is not a ref node")
+
+# ===== file version assasiated ======
 def getFileVersionString(file_name):
     """
     get the version string "vxxx", split with _ or .
