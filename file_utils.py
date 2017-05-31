@@ -109,6 +109,7 @@ def getNodeReferenceNode(node_name):
     if not is_ref_node:
         logging.error("Node is not a ref node")
 
+
 # ===== file version assasiated ======
 def getFileVersionString(file_name):
     """
@@ -189,22 +190,43 @@ def getLatestVersionFolder(folder_list):
     else:
         return result_folder
 
-#  ===== abc file =====
+#  ===== files of dir =====
+def getFilesOfDir(dir_name, type_ext):
+    """   """
+    if not os._exists(dir_name):
+        logging.error(u"dir not exists:%s"%dir_name)
+        return None
+
+    file_list = os.listdir(dir_name)
+    result_list = filter(lambda f: f.endswith(type_ext), file_list)
+
+    if not result_list:
+        logging.warning(u"no files of type:%s under dir:%s"%(type_ext, dir_name))
+        return None
+
+    return result_list
+
 def getAbcFilesOfDir(dir_name):
     """
     get abc file list of the dir
     """
-    if not os.path.exists(dir_name):
-        logging.error(u"文件夹不存在，请检查:%s"%dir_name)
+    abc_file_list = getFilesOfDir(dir_name, 'abc')
+
+    if not abc_file_list:
         return None
 
-    file_list = os.listdir(dir_name)
-    abcfile_list = filter(lambda f: os.path.splitext(f) == ".abc", file_list)
-    if not abcfile_list:
-        logging.error(u"目录下没有abc文件:%s"%dir_name)
+    return abc_file_list
+
+def getMaFilesOfDir(dir_name):
+    """
+    get ma file list of the dir
+    """
+    result_list = getFilesOfDir(dir_name, 'ma')
+
+    if not result_list:
         return None
 
-    return abcfile_list
+    return result_list
 
 def refAbcFilesInDir(dir_name):
     """
