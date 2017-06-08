@@ -11,8 +11,9 @@ from maya.OpenMaya import MGlobal
 import maya.cmds as cmds
 import pymel.core as pmcore
 
-
+#
 # ====== current file =====
+#
 def exportObjectAsMbFile(location="", objectName=""):
     if objectName == "":
         MGlobal.displayWarning("No object exported!!!")
@@ -34,7 +35,9 @@ def getCurrentSceneName():
     return currentSceneName
 
 
+#
 # ===== reference file =====
+#
 def getNodesInReferenceFromFileName(ref_file):
     """   """
     if not os.path.exists(ref_file):
@@ -103,14 +106,21 @@ def isFileReferenced(file_name):
     else:
         return False
 
-def getNodeReferenceNode(node_name):
+def getRefNodeOfNode(node_name):
     """ """
     is_ref_node = cmds.referenceQuery(node_name, isNodeReferenced=True)
     if not is_ref_node:
         logging.error("Node is not a ref node")
+        return None
+
+    ref_node = cmds.referenceQuery( node_name, referenceNode=True)
+
+    return ref_node
 
 
+#
 # ===== file version assasiated ======
+#
 def getFileVersionString(file_name):
     """
     get the version string "vxxx", split with _ or .
@@ -190,6 +200,30 @@ def getLatestVersionFolder(folder_list):
     else:
         return result_folder
 
+
+def getFileNameOfVersion(file_location, version_str):
+    """   """
+    if not os.path.exists(file_location):
+        logging.error(u"file location not exists:%s"%file_location)
+        return None
+
+    file_entrys = []
+    for entry in scandir(file_location):
+        if entry.is_file():
+            file_entry.append(entry)
+
+    if not file_entrys:
+        logging.error(u"no files under file location:%s"%file_location)
+        return None
+
+    file_list = [entry.name for entry in file_entrys]
+    for file_name in file_list:
+        if version_str in file_name:
+            return file_name
+
+    logging.warn(u"no file have version:%s"%version_str)
+    return None
+
 #  ===== files of dir =====
 def getFilesOfDir(dir_name, type_ext):
     """   """
@@ -233,6 +267,21 @@ def refAbcFilesInDir(dir_name):
     ref abc files in dir
     """
 
-# openvdb file
+#
+#  ======file name check======
+#
+def isFileNameMatchPatten(file_name, patten):
+    """
+    check if the file name is match the patten
+    """
+    match= re.match(patten, file_name)
+
+    if match:
+        return True
+    else:
+        return False
+
+
+# =====  openvdb file  =======
 
 
