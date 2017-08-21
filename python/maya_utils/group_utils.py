@@ -9,3 +9,16 @@ def getGroupAllDecendShapeNodes(group_name):
 
     return shapeList
 
+def getShapeSiblings(shape_node):
+    """
+    """
+    parent = cmds.listRelatives(shape_node, parent=True)
+    shape_list = cmds.listRelatives(parent, children=True)
+
+    if len(shape_list) <= 1:
+        print("shape have no sibling")
+        return None
+    
+    shape_list.remove(shape_node)
+
+    return shape_list
