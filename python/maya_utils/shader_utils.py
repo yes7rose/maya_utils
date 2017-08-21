@@ -1,9 +1,9 @@
 # encoding: utf-8
 
 import os
-import maya.cmds as cmds
+import logging
 
-DEFAULT_SHADING_GROUPS = ['initialParticleSE', 'initialShadingGroup']
+import maya.cmds as cmds
 
 def getObjectsShaderGroupSet(objShape=""):
 
@@ -63,6 +63,34 @@ def getAbsolutePathTextureFileList():
             textureFiles.append(absTextureFile)
 
     return textureFiles
+
+
+def getFileNodesListFromTextureName(texture_name):
+    """
+    
+    :param texture_name: 
+    :return: file node list
+    """
+    if not texture_name:
+        logging.error("texture name must provided")
+        return
+
+    file_nodes = cmds.ls(type="file")
+
+    node_list = []
+    for node in file_nodes:
+        node_texture_name = cmds.getAttr(node + ".fileTextureName")
+        if not node_texture_name:
+            continue
+
+        if not os.path.exists(node_texture_name):
+            logging.error("file %s not exist, please check node %s"%(node_texture_name, node))
+            continue
+
+        if texture_name in node_texture_name:
+            node_list.append(node)
+
+    return node_list
 
 ## create file node with place2d
 #
