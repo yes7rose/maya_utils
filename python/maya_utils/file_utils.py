@@ -34,6 +34,10 @@ def getCurrentSceneName():
     currentSceneName = pmcore.system.sceneName().basename()
     return currentSceneName
 
+def getCurrentSceneAbsPath():
+    current_path = pmcore.system.sceneName()
+    return current_path
+
 
 #
 # ===== reference file =====

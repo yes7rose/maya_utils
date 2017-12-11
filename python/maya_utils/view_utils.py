@@ -114,6 +114,15 @@ def restoreViewportDisplayStatus(display_status_dict):
     cmds.modelEditor(persp_panel, edit=True, hud=display_status_dict["hud"])
     cmds.modelEditor(persp_panel, edit=True, sel=display_status_dict["sel"])
 
+def changeViewRendererToVP2():
+    """
+    change persp view port display renderer to viewport2
+    """
+    persp_panel = "modelPanel4"    
+    cmds.setFocus(persp_panel)
+
+    cmds.modelEditor(persp_panel, rendererName = "vp2Renderer", edit=True) 
+    
 
 def makeObjectIsolateOn(objectName):
     """
