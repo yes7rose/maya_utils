@@ -5,6 +5,27 @@ import maya.mel as mel
 
 from api_utils import getMObjectFromName
 
+
+def getCameras():
+    """
+
+    :return:
+    """
+    camera_shapes = cmds.ls(type="camera")
+    camera_list = [cmds.listRelatives(c, parent=True)[0] for c in camera_shapes]
+
+    return camera_list
+
+def getCameraShapes():
+    """
+
+    :return:
+    """
+    camera_shapes = cmds.ls(type="camera")
+    # camera_list = [cmds.listRelatives(c, parent=True)[0] for c in camera_shapes]
+
+    return camera_shapes
+
 def createPreviewCamera(objectName):
     """
     create object preview camera, frame the object
