@@ -1,6 +1,6 @@
 # encoding:utf-8
 
-import maya.openMayaUi as apiUI
+import maya.OpenMayaUI as apiUI
 # import sip
 import shiboken
 
